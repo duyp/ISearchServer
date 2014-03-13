@@ -1,9 +1,10 @@
 clear all; close all;
 %% init parameter
 addpath('AKM');
-run('vlfeat\toolbox\vl_setup.m');
+run('vl_setup.m');
+fprintf('RUNNING.....');
 datasetDir = 'C:\oxford-images\';
-isComputeSIFT = 0;
+isComputeSIFT = 1;
 num_words = 1000000;
 num_iterations = 5;
 num_trees = 8;
@@ -20,7 +21,7 @@ if isComputeSIFT == 1
         i
         imgPath = strcat(datasetDir, files(i).name);
         I = im2single(rgb2gray(imread(imgPath)));
-        [frame, sift] = vl_covdet(I, 'method', 'Hessian', 'estimateAffineShape', true);
+        [frame, sift] = vl_covdet(I, 'method', 'Hessian', 'EstimateAffineShape', true);
         features = [features sift];
         features_per_image(i) = size(sift, 2);
     end
